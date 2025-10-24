@@ -1,12 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><title>Daily Quote</title></head>
+<head>
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f3f3f3;
+            padding: 50px;
+        }
+        #quote-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin: auto;
+            box-shadow: 0px 0px 10px gray;
+        }
+        #quote {
+            font-size: 20px;
+            color: #333;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
 <body>
-  <h1>Daily Quote</h1>
-  <blockquote>
-    <p>{{ quote['text'] }}</p>
-    <footer>— {{ quote['author'] }}</footer>
-  </blockquote>
-  <p><a href="/about">About</a> | <a href="/api/quote/today">JSON API</a></p>
+
+    <h1>💬 Random Quote Generator</h1>
+    <div id="quote-box">
+        <p id="quote">Click the button to get a random quote!</p>
+        <button onclick="getQuote()">New Quote</button>
+    </div>
+
+    <script>
+        async function getQuote() {
+            const response = await fetch("http://localhost:8000/quote");
+            const data = await response.json();
+            document.getElementById("quote").innerText = data.quote;
+        }
+    </script>
+
 </body>
 </html>
