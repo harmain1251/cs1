@@ -1,39 +1,19 @@
-from flask import Flask, jsonify, render_template
 import random
-import datetime
-import json
-import os
 
-app = Flask(__name__, template_folder="templates")
+# List of quotes
+quotes = [
+    "The best way to get started is to quit talking and begin doing. – Walt Disney",
+    "Don’t let yesterday take up too much of today. – Will Rogers",
+    "It’s not whether you get knocked down, it’s whether you get up. – Vince Lombardi",
+    "If you are working on something exciting, it will keep you motivated. – Steve Jobs",
+    "Success is not in what you have, but who you are. – Bo Bennett",
+    "Act as if what you do makes a difference. It does. – William James",
+    "With the new day comes new strength and new thoughts. – Eleanor Roosevelt"
+]
 
-QUOTES_FILE = os.path.join(os.path.dirname(__file__), "quotes.json")
-with open(QUOTES_FILE, "r", encoding="utf-8") as f:
-    QUOTES = json.load(f)
+# Pick a random quote
+random_quote = random.choice(quotes)
 
-def get_daily_quote():
-    today = datetime.date.today().toordinal()
-    idx = today % len(QUOTES)
-    return QUOTES[idx]
-
-@app.route("/")
-def index():
-    quote = get_daily_quote()
-    return render_template("index.html", quote=quote)
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-@app.route("/api/quote/today")
-def api_quote():
-    quote = get_daily_quote()
-    return jsonify({
-        "date": str(datetime.date.today()),
-        "quote": quote
-    })
-
-if __name__ == "__main__":
-    # Added a print statement for Jenkins test
-    print("Jenkins trigger test")
-    app.run(host="0.0.0.0", port=5000)
-    
+# Display it
+print("💬 Random Quote of the Day:")
+print(random_quote)
