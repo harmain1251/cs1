@@ -1,6 +1,8 @@
+from flask import Flask, jsonify
 import random
 
-# List of quotes
+app = Flask(__name__)
+
 quotes = [
     "The best way to get started is to quit talking and begin doing. – Walt Disney",
     "Don’t let yesterday take up too much of today. – Will Rogers",
@@ -11,9 +13,9 @@ quotes = [
     "With the new day comes new strength and new thoughts. – Eleanor Roosevelt"
 ]
 
-# Pick a random quote
-random_quote = random.choice(quotes)
+@app.route('/quote', methods=['GET'])
+def get_quote():
+    return jsonify({"quote": random.choice(quotes)})
 
-# Display it
-print("💬 Random Quote of the Day:")
-print(random_quote)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
