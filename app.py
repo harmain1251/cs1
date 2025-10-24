@@ -35,5 +35,5 @@ def api_quote():
 if __name__ == "__main__":
     # Added a print statement for Jenkins test
     print("Jenkins trigger test")
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=5000)
     
